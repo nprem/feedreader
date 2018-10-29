@@ -77,12 +77,7 @@ $(function() {
          });
 
          it('there is at least a single .entry element within the .feed container', function() {
-            //var isEmpty = $('.feed').children.length <= 0;
-            //expect(isEmpty).toBe(false);
-            expect($('.feed')).not.toBeNull();
-            var hasEntry = $('div.feed a.entry-link article.entry');
-            expect(hasEntry).not.toBeNull();
-            expect(hasEntry).toBeDefined(); 
+            expect($('.feed .entry').children.length).not.toBe(0);
          });
     });
 
