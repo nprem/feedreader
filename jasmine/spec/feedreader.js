@@ -41,11 +41,10 @@ $(function() {
             });
         }
 
-
-        for(var x = 0; x < allFeeds.length; x++) {
-            test_url(allFeeds[x].url);
-            test_name(allFeeds[x].name);
-        }
+        allFeeds.forEach(feed => {
+            test_url(feed.url);
+            test_name(feed.name)
+         });
 
     });
 
@@ -71,39 +70,37 @@ $(function() {
 
     describe('Initial Entries', function() {
 
-         beforeEach(function(done) {
-             loadFeed(0);
-             done();
-         });
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            });
+        });
 
-         it('there is at least a single .entry element within the .feed container', function() {
+        it('there is at least a single .entry element within the .feed container', function() {
             expect($('.feed .entry').length).not.toBe(0);
-         });
+        });
     });
 
 
     describe('New Feed Selection', function() {
-        let feed;
-        let firstFeed = [];
+        let initialFeed, finalFeed;
 
         beforeEach(function(done) {
             loadFeed(0, function() {
-                feed = document.querySelector('.feed');
-                Array.from(feed.children).forEach(function(item) {
-                    firstFeed.push(item.innerText);
-                });
+                initialFeed = document.querySelector('.feed').innerText;
+                //console.log(initialFeed);
 
                 loadFeed(1, function() {
-                    feed = document.querySelector('.feed');
+                    finalFeed = document.querySelector('.feed').innerText;
+                    //console.log(initialFeed);
+                    //console.log(finalFeed);
                     done();
                 });
             });
         });
 
         it('content changes when a new feed is loaded', function() {
-            Array.from( feed.children).forEach(function(item, index) { 
-                expect(firstFeed[index].innerText === item.innerText).toBe(false);
-            });
+            expect(initialFeed === finalFeed).toBe(false);
         });
     });
 
