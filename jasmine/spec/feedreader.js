@@ -52,16 +52,18 @@ $(function() {
     describe('The menu', function() {
 
         it('menu element is hidden by default', function() {
-            expect($('body.menu-hidden').length).not.toBe(0);
-            //expect($('body')).hasClass('menu-hidden');
+            //expect($('body.menu-hidden').length).not.toBe(0);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
          it('menu changes visibility when the menu icon is clicked', function() {
             $('.menu-icon-link').trigger("click");
-            expect($('body.menu-hidden').length).toBe(0);
+            //expect($('body.menu-hidden').length).toBe(0);
+            expect($('body').hasClass('menu-hidden')).toBe(false);
 
             $('.menu-icon-link').trigger("click");
-            expect($('body.menu-hidden').length).not.toBe(0);
+            //expect($('body.menu-hidden').length).not.toBe(0);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
 
         });
 
